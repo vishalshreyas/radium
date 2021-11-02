@@ -1,0 +1,76 @@
+
+* 		1. For this assignment, your terminal will be reviewed. Don’t clear the terminal.   Problem 1: - Create a folder called ‘assignment’ - Inside ‘assignment’ create 2 folders ‘source’ and ‘destination’ - Inside ‘source’ create a text file using a command ( not manually) - Add content in the text file - copy the contents of ‘source’ folder in ‘destination’ using cp command   End result : both the folders source and destination should have the same file   Problem 2: - Remove the above file from ‘destination’ folder - Move the file from ‘source’ to ‘destination’   End result: Only destination folder should have the file.   Problem 3:   - Edit the above file in ‘destination’ folder and add a lot of lines of text with ‘functionup’ mentioned in a few lines - Use the grep command to find all the lines containing the key word ‘functionup’
+
+Solution:
+
+vishalshreyas@Vishals-MacBook-Air test % mkdir Assignment
+vishalshreyas@Vishals-MacBook-Air test % cd Assignment
+vishalshreyas@Vishals-MacBook-Air Assignment % mkdir Source
+vishalshreyas@Vishals-MacBook-Air Assignment % mkdir destination
+vishalshreyas@Vishals-MacBook-Air Assignment % cd Source
+vishalshreyas@Vishals-MacBook-Air Source % touch file.txt
+vishalshreyas@Vishals-MacBook-Air Source % cat file.txt
+vishalshreyas@Vishals-MacBook-Air Source % Hi! How are you?
+zsh: no matches found: you?
+vishalshreyas@Vishals-MacBook-Air Source % cat file.txt
+vishalshreyas@Vishals-MacBook-Air Source % pwd
+/Users/vishalshreyas/Desktop/test/Assignment/Source
+vishalshreyas@Vishals-MacBook-Air Source % cat file.txt
+vishalshreyas@Vishals-MacBook-Air Source % Hi!
+zsh: command not found: Hi!
+vishalshreyas@Vishals-MacBook-Air Source % cat
+Hi! How are you? Hi! How are you? %                                                                                                                         
+vishalshreyas@Vishals-MacBook-Air Source % cp file.txt
+usage: cp [-R [-H | -L | -P]] [-fi | -n] [-apvXc] source_file target_file
+       cp [-R [-H | -L | -P]] [-fi | -n] [-apvXc] source_file ... target_directory
+vishalshreyas@Vishals-MacBook-Air Source % cd ..
+vishalshreyas@Vishals-MacBook-Air Assignment % cd destination
+vishalshreyas@Vishals-MacBook-Air destination % mv file.txt
+usage: mv [-f | -i | -n] [-v] source target
+       mv [-f | -i | -n] [-v] source ... directory
+vishalshreyas@Vishals-MacBook-Air destination % cp file.txt ... destination
+usage: cp [-R [-H | -L | -P]] [-fi | -n] [-apvXc] source_file target_file
+       cp [-R [-H | -L | -P]] [-fi | -n] [-apvXc] source_file ... target_directory
+vishalshreyas@Vishals-MacBook-Air destination % cp /Users/vishalshreyas/Desktop/test/Assignment/Source/file.txt /Users/vishalshreyas/Desktop/test/Assignment/destination 
+vishalshreyas@Vishals-MacBook-Air destination % pwd
+/Users/vishalshreyas/Desktop/test/Assignment/destination
+vishalshreyas@Vishals-MacBook-Air destination % rm file.txt
+vishalshreyas@Vishals-MacBook-Air destination % cd ..
+vishalshreyas@Vishals-MacBook-Air Assignment % cd Source
+vishalshreyas@Vishals-MacBook-Air Source % mv /Users/vishalshreyas/Desktop/test/Assignment/Source/file.txt /Users/vishalshreyas/Desktop/test/Assignment/destination
+vishalshreyas@Vishals-MacBook-Air Source % cd ..
+vishalshreyas@Vishals-MacBook-Air Assignment % cd destination
+vishalshreyas@Vishals-MacBook-Air destination % file.txt
+zsh: command not found: file.txt
+vishalshreyas@Vishals-MacBook-Air destination % cat
+HijfNSJFHFDNFDNDFNMF, FNJEHFDIOFEKEFMMDMNDKNKJDJDKNDDNKFDJDNDNDNNCNKCNKCNKCKNCDCDCJDCKCMKKCKJCJICISNDJDSH
+HijfNSJFHFDNFDNDFNMF, FNJEHFDIOFEKEFMMDMNDKNKJDJDKNDDNKFDJDNDNDNNCNKCNKCNKCKNCDCDCJDCKCMKKCKJCJICISNDJDSH
+DKDKDJLLDJNDNDCNDNJSDJLDCNDSCNCNCDNCKJCCJICJNKNDNCDNKJSJDNNCNDNSHDHJCNFFNHHODHCDNDNDCNKCCIHCHCNNDNLCHSHIODHDL
+DKDKDJLLDJNDNDCNDNJSDJLDCNDSCNCNCDNCKJCCJICJNKNDNCDNKJSJDNNCNDNSHDHJCNFFNHHODHCDNDNDCNKCCIHCHCNNDNLCHSHIODHDL
+JHHOIEHOUWEHNEJLHHUODHUJNJDJNNJHDHUOHODUHDNJFNJLNFNDCUHHUHJFFLNHHFJLDJLHUHO functionupiskskjisjisnsknnsshdsjl
+JHHOIEHOUWEHNEJLHHUODHUJNJDJNNJHDHUOHODUHDNJFNJLNFNDCUHHUHJFFLNHHFJLDJLHUHO functionupiskskjisjisnsknnsshdsjl
+hfuhdfdndnlkdhjidhdjnndndvnjdvjlvhohovvhvvnklvndnkfkidvidiousddkfk;sfkodi[fffkfkeelflkekfdko[d[idicdkokfdslkfk
+hfuhdfdndnlkdhjidhdjnndndvnjdvjlvhohovvhvvnklvndnkfkidvidiousddkfk;sfkodi[fffkfkeelflkekfdko[d[idicdkokfdslkfk
+jiijifj;eme;fek;jfojfjef;efemfm;fk;jfjjpdipfefjfkmf;flmkkfko[eo[feiieekkleekl'fokfeko[eoiiejkk;tojkijpgrigouhh
+jiijifj;eme;fek;jfojfjef;efemfm;fk;jfjjpdipfefjfkmf;flmkkfko[eo[feiieekkleekl'fokfeko[eoiiejkk;tojkijpgrigouhh
+functionuphefjekfekfknenkflnkidijffkfkfknflkljiifff;ffffjijjdkkkfkkdkjjjidjipvjdk;jkdk;d;kipjdjipfkmmkk
+functionuphefjekfekfknenkflnkidijffkfkfknflkljiifff;ffffjijjdkkkfkkdkjjjidjipvjdk;jkdk;d;kipjdjipfkmmkk
+vishalshreyas@Vishals-MacBook-Air destination % grep functionup
+vishalshreyas@Vishals-MacBook-Air destination % grep "functionup" file.txt
+vishalshreyas@Vishals-MacBook-Air destination % cat > file.txt
+dkdfkmskjidssdjmdmmckljccjscmsccscklsjscjcsmcsmccmkscijcskcmscsmcsck;cjscscmsacmk;cjicscjscmkcmkcjipcjpcjgmagjigjeigj
+fdfhdndnfnldhiciodhscdcndsnvdnkvdnlvdvhdivihvdvdvhvnvndnvldvnnlvhhivhivhivdvnknvkdnkvdkvdvijvpijdsjefffeojjojovvmdvmdvm;dkvsdij
+lfhvhiovohvhvhovknnvk;nkv;vidipvipjvjidv;dvm;m;vmk;vdijpvdijp functionup dnjlhvhuoddkdcknsncnkasnlchshiochscijc;kckdcdkn;didvi
+heihlddnvnvnkdvnkdnklvdlvihovhvivivvk;nvknvnkldvlnvvhivhvhivhid functionup fhfhdnjdncnlhieohoiijejfkenkfeifijioifenkfelnkfenklfeli
+enlfnjfenjlejnfjnfelnjfnlkeklnflkennlefnfifeifjipefiejiff;fiioeiffknfkfkfijipfijpfijpofm;m;fmm;opkoolfl;flm;efmdvjdokovkv;vdl;l'
+ffhfodhooivlfkfmkkm;kvjijipjpjp functionup hhdefjnefnfndfdioiofeijfjfekfkfknfiheoehrhoggfrhgrhghihoiherhghrhgrhigfghfhuhouvhnkldn
+vishalshreyas@Vishals-MacBook-Air destination % grep "functionup" file.txt
+lfhvhiovohvhvhovknnvk;nkv;vidipvipjvjidv;dvm;m;vmk;vdijpvdijp functionup dnjlhvhuoddkdcknsncnkasnlchshiochscijc;kckdcdkn;didvi
+heihlddnvnvnkdvnkdnklvdlvihovhvivivvk;nvknvnkldvlnvvhivhvhivhid functionup fhfhdnjdncnlhieohoiijejfkenkfeifijioifenkfelnkfenklfeli
+ffhfodhooivlfkfmkkm;kvjijipjpjp functionup hhdefjnefnfndfdioiofeijfjfekfkfknfiheoehrhoggfrhgrhghihoiherhghrhgrhigfghfhuhouvhnkldn
+vishalshreyas@Vishals-MacBook-Air destination % grep -i 'functionup' file.txt
+lfhvhiovohvhvhovknnvk;nkv;vidipvipjvjidv;dvm;m;vmk;vdijpvdijp functionup dnjlhvhuoddkdcknsncnkasnlchshiochscijc;kckdcdkn;didvi
+heihlddnvnvnkdvnkdnklvdlvihovhvivivvk;nvknvnkldvlnvvhivhvhivhid functionup fhfhdnjdncnlhieohoiijejfkenkfeifijioifenkfelnkfenklfeli
+ffhfodhooivlfkfmkkm;kvjijipjpjp functionup hhdefjnefnfndfdioiofeijfjfekfkfknfiheoehrhoggfrhgrhghihoiherhghrhgrhigfghfhuhouvhnkldn
+vishalshreyas@Vishals-MacBook-Air destination % 
+
