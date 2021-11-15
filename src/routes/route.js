@@ -117,7 +117,7 @@ const spm = [
       genre: "romance",
     },
   ];
-router.get("/specific-movies", function (req, res) {
+router.get("/myspecific-movies", function (req, res) {
   
   const filters = req.query;
   const filteredUsers = spm.filter((movie) => {
@@ -137,17 +137,127 @@ router.get("/specific-movies", function (req, res) {
 
   
 });
-router.post("/specific-movies",function(req,res){
+router.post("/myspecific-movies",function(req,res){
     const add = req.body
     spm.push(add)
     res.send(spm)
 })
-router.get("/best-movie", function (req, res) {
+router.get("/mybest-movie", function (req, res) {
     console.log(spm)
     const filteredUser = spm.find(movie => Math.max(movie.rating))
     res.send(filteredUser);
   });
 
+// Solutions given
+//Problem 1 Solution --------------------------------
+let movies = [
+    {
+      id: 1,
+      name: "The Shining",
+      rating: 8,
+      director: "Stanley Kubrik",
+      genre: "horror",
+    },
+    {
+      id: 2,
+      name: "Incendies",
+      rating: 7,
+      director: "Denis Villeneuve",
+      genre: "drama",
+    },
+    {
+      id: 3,
+      name: "12 Angry Men",
+      rating: 9,
+      director: "Sidney Lumet",
+      genre: "drama",
+    },
+    {
+      id: 4,
+      name: "The Conjuring",
+      rating: 8,
+      director: "James Wan",
+      genre: "horror",
+    },
+    {
+        id: 5,
+        name: "Ace Ventura",
+        rating: 6,
+        director: "Stanley Kubrik",
+        genre: "comedy",
+      },
+     ];
+     
+router.get('/specific-movies', function(req,res){
+    let requestedRating = req.query.rating;
+ let requestedGenre = req.query.genre;
+ let requestedMovie;
+ 
+ for (let i = 0; i < movies.length; i++) {
+   if (
+     movies[i].rating == requestedRating &&
+     movies[i].genre == requestedGenre
+   ) {
+     requestedMovie = movies[i];
+     break;
+   }
+ }
+ 
+ if (requestedMovie) {
+   res.send(
+     "The movie requested with genre: " +
+       requestedGenre +
+       " and rating: " +
+       requestedRating +
+       " - " + 
+       requestedMovie.name
+   );
+ } else {
+   res.send(
+     "Movie with requested filters (rating: " +
+       requestedRating +
+       ", genre: " +
+       requestedGenre +
+       " ) is not available"
+   );
+ }
 
+})
+//Problem 2 Solution --------------------------------
+router.post("/specific-movies", function (req, res) {
+    let rating = req.body.rating;
+    let director = req.body.director;
+    console.log(director)
+    if (!director) {
+      res.send("Director information must be present in the request");
+    } else if (rating > 10) {
+      res.send("Rating is not valid. A valid rating value is between 1 and 10");
+    } else {
+      let newMovie = {
+        id: req.body.id,
+        name: req.body.name,
+        rating: req.body.rating,
+        director: req.body.director,
+        genre: req.body.genre,
+      };
+    
+      movies.push(newMovie);
+      res.send(movies);
+    }
+   });
+   //Problem 3 Solution --------------------------------
+   router.get("/best-movie", function (req, res) {
+    let highestRating = 0;
+    let highestRatingIndex = 0;
+    
+    for (let i = 0; i < movies.length; i++) {
+      if (movies[i].rating > highestRating) {
+        highestRating = movies[i].rating;
+        highestRatingIndex = i;
+      }
+    }
+    res.send("The highest rated movie is: " + movies[highestRatingIndex].name);
+   });
+   
 
 module.exports = router;
