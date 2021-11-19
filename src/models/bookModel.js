@@ -1,40 +1,15 @@
-const mongoose=require('mongoose')
+const mongoose = require("mongoose");
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
+const bookSchema = new mongoose.Schema(
+  {
+    name: String,
+    author: { type: ObjectId, ref: "myAuthor" },
+    price: Number,
+    ratings: Number,
+    publisher: {type: ObjectId, ref:"myPublisher"}
+  },
+  { timestamps: true }
+);
 
-// schema - definition of data - what will the data look like
-// model - functionality (it enable us to create, view and modify data )
-
-const bookSchema = new mongoose.Schema({
-    bookName: {
-        type:String,
-        unique: true,
-        required:true
-    },
-    price: {
-
-        indianPrice : String,
-        europeanPrice : String
-    },
-    authorName:{
-        type:String,
-        required:true
-    },
-    tags: [String],
-    totalPages: Number,   
-    category: String,
-    stockAvailable: Boolean,
-    year: {
-        type: Number,
-        default: 2021
-    },
-    sales:{
-        type:Number,
-        default:0
-    }, 
-
-}, {timestamps: true})
-
-
-
-
-module.exports=mongoose.model('NewBook',bookSchema)
+module.exports = mongoose.model("myBook", bookSchema);
