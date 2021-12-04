@@ -1,20 +1,12 @@
 const express = require('express');
 const router = express.Router();
 
-const userController= require("../controllers/bookController");
-const middleWare = require('../middlewares/univMiddlewares')
+const collegeController= require("../controllers/collegeController")
+const internController= require("../controllers/internController")
 
-
-
-
-
-//Assignment
-
-router.post('/users', userController.registerUser);
-router.post('/login', userController.login);
-router.get('/users/:userId',middleWare.tokenCheck, userController.getDetails);
-router.put('/users/:userId',middleWare.tokenCheck,userController.updateDetails)
-
+router.post("/functionup/colleges", collegeController.createColleges)
+router.post("/functionup/interns", internController.createInterns)
+router.get("/functionup/collegeDetails", collegeController.getCollegeDetails)
 
 
 module.exports = router;
