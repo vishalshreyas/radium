@@ -1,20 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
-const userController= require("../controllers/bookController");
-const middleWare = require('../middlewares/univMiddlewares')
+const urlController= require("../controllers/urlcontroller")
 
 
-
-
-
-//Assignment
-
-router.post('/users', userController.registerUser);
-router.post('/login', userController.login);
-router.get('/users/:userId',middleWare.tokenCheck, userController.getDetails);
-router.put('/users/:userId',middleWare.tokenCheck,userController.updateDetails)
-
-
+router.post("/url/shorten",urlController.shortenUrl )
+router.get("/:urlCode",urlController.redirectUrl)
 
 module.exports = router;
