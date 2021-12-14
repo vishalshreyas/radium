@@ -8,10 +8,10 @@ const urlSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-urlSchema.path("longUrl").validate((val) => {
-  urlRegex =
-    /(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/;
-  return urlRegex.test(val);
-}, "Invalid URL.");
+// urlSchema.path("longUrl").validate((val) => {
+//   urlRegex =
+//     /(ftp|http|https|HTTP|HTTPS):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/;
+//   return urlRegex.test(val);
+// }, "Invalid URL.");
 
 module.exports = mongoose.model("Url", urlSchema);

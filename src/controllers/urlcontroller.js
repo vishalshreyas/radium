@@ -56,31 +56,28 @@ const shortenUrl = async function (req, res) {
         .status(400)
         .send({ status: false, message: "Please provide Long URL" });
     }
-
-    // const len = urlval.length
-    // if (len > 1) {
-    //     return res.status(400).send({ status: false, msg: "URL cannot have space inbetween" });
-    // }
-
-    if (
-      !/(ftp|http|https):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/.test(
-        longUrl
-      )
-    ) {
+    if(!/(ftp|http|https|HTTP|HTTPS):\/\/(\w+:{0,1}\w*@)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%@!\-/]))?/.test(longUrl)){
+    return res.status(400).send({status: false,message: "Invalid URL. Please provide correct URL"});
+    }
+    if (!/[(http(s)?):\/\/(www\.)?a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/.test(longUrl)) {
       return res.status(400).send({
         status: false,
         message: "Invalid URL. Please provide correct URL",
       });
     }
-    if (!/(.com|.org|.co.in|.in|.co|.us)/.test(longUrl)) {
-      return res.send("Url is not valid");
-    }
+    // if (!/(.com|.org|.co.in|.in|.co|.us)/.test(longUrl)) {
+    //   return res.send({ status: false, message: "Invalid URL. Please provide correct URL" });
+    // }
     const urlTrim = longUrl.trim();
     const urlval = urlTrim
       .split("")
       .map((a) => a.trim())
       .join("");
-
+    
+    const isAlreadyReg = await urlModel.findOne({longUrl})
+    if(isAlreadyReg){
+      res.status(201).send({ data: isAlreadyReg });
+    }
     function makeid(length) {
       var result = "";
       var characters = "abcdefghijklmnopqrstuvwxyz";
@@ -106,17 +103,15 @@ const shortenUrl = async function (req, res) {
     data["shortUrl"] = shortUrl;
     data["urlCode"] = urlCode;
 
-    let cachedUrlData = await GET_ASYNC(`${data.longUrl}`);
+    let cachedUrlData = await GET_ASYNC(`${urlval}`);
     if (cachedUrlData) {
       res.send(cachedUrlData);
     } else {
       let profile = await urlModel.create(data);
-      await SET_ASYNC(`${data}`, JSON.stringify(profile));
+      await SET_ASYNC(`${urlval}`, JSON.stringify(profile));
+      await SET_ASYNC(`${urlCode}`, JSON.stringify(profile));
       res.status(201).send({ data: profile });
     }
-    // const response = await urlModel.create(data);
-
-    // res.status(201).send({ status: true, data: response });
   } catch (err) {
     console.log(err.message);
     res.status(500).send({ msg: "Some error occured" });
@@ -127,18 +122,18 @@ const redirectUrl = async function (req, res) {
   try {
     const urlData = req.params.urlCode;
 
-    const urlDataTwo = urlData
+    const urlCode = urlData
       .split("")
       .map((a) => a.trim())
       .join("");
 
-    let cachedUrlDataTwo = await GET_ASYNC(`${urlDataTwo}`);
-
-    if (cachedUrlDataTwo) {
-      res.redirect(307, cachedUrlDataTwo.longUrl);
+    let cachedUrlDataTwo = await GET_ASYNC(`${urlCode}`);
+    let cachedUrlDataThree = JSON.parse(cachedUrlDataTwo)
+    if (cachedUrlDataThree) { 
+      res.redirect(307, cachedUrlDataThree['longUrl']);
     } else {
       let validData = await urlModel
-        .findOne({ urlCode: urlDataTwo })
+        .findOne({ urlCode: urlCode })
         .select({ longUrl: 1 });
 
       if (!validData) {
@@ -147,20 +142,10 @@ const redirectUrl = async function (req, res) {
           .send({ status: false, message: "Please provide a valid URL Code" });
       }
 
-      await SET_ASYNC(`${validData}`, JSON.stringify(profile));
+      await SET_ASYNC(`${urlCode}`, JSON.stringify(validData));
       res.redirect(307, validData.longUrl);
     }
-    // const validData = await urlModel
-    //   .findOne({ urlCode: urlDataTwo })
-    //   .select({ longUrl: 1 });
 
-    // if (!validData) {
-    //   return res
-    //     .status(400)
-    //     .send({ status: false, message: "Please provide a valid URL Code" });
-    // }
-
-    // res.redirect(307, validData.longUrl);
   } catch (err) {
     res.status(500).send({ status: false, message: err.message });
   }
