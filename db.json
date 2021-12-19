@@ -1,0 +1,22 @@
+{
+  "tasks": [
+    {
+      "id":1,
+      "text":"Going to Movie",
+      "day":"Dec 24th at 9pm",
+      "reminder": true
+  },
+  {
+      "id":2,
+      "text":"Revising Javascript",
+      "day":"Dec 19th at 8:30pm",
+      "reminder": true
+  },
+  {
+      "id":3,
+      "text":"Practicing Recursion",
+      "day":"Dec 20th at 9pm",
+      "reminder": true
+  }
+  ]
+}
